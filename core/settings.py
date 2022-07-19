@@ -49,7 +49,8 @@ INSTALLED_APPS = [
     'corsheaders',
     'base',
     'register',
-    'story'
+    'story',
+    'status'
 ]
 CSRF_TRUSTED_ORIGINS = ['http://localhost:3000']
 # CSRF_COOKIE_SECURE = False

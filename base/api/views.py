@@ -8,8 +8,6 @@ from rest_framework_simplejwt.views import TokenObtainPairView
 
 from django.contrib.auth import get_user_model
 
-from .serializers import NoteSerializer
-from base.models import Note
 
 User = get_user_model()
 
@@ -52,20 +50,20 @@ def getRoutes(request):
     ]
     return Response(routes)
 
-@api_view(['GET','POST'])
-@permission_classes([IsAuthenticated])
-def statuses(request):
-    if request.method == "GET":
-        user = request.user
-        notes = Note.objects.exclude(user=user).order_by("-id")[:10]
-        #notes = user.note_set.all()
-        serializer = NoteSerializer(notes,many=True)
-        return Response(serializer.data)
+# @api_view(['GET','POST'])
+# @permission_classes([IsAuthenticated])
+# def statuses(request):
+#     if request.method == "GET":
+#         user = request.user
+#         notes = Note.objects.exclude(user=user).order_by("-id")[:10]
+#         #notes = user.note_set.all()
+#         serializer = NoteSerializer(notes,many=True)
+#         return Response(serializer.data)
 
-    if request.method == "POST":
-        serializer = NoteSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.validated_data["user"] = request.user
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+#     if request.method == "POST":
+#         serializer = NoteSerializer(data=request.data)
+#         if serializer.is_valid():
+#             serializer.validated_data["user"] = request.user
+#             serializer.save()
+#             return Response(serializer.data, status=status.HTTP_201_CREATED)
+#         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

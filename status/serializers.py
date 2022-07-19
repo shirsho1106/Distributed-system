@@ -1,6 +1,6 @@
 from dataclasses import field
 from rest_framework.serializers import ModelSerializer
-from base.models import Note
+from status.models import Note
 
 class NoteSerializer(ModelSerializer):
     class Meta:
