@@ -2,6 +2,9 @@ import React, { useContext, useEffect, useState } from 'react'
 import {Navigate} from 'react-router-dom'
 import AuthContext from '../context/AuthContext'
 
+import FloatingLabel from 'react-bootstrap/FloatingLabel';
+import Form from 'react-bootstrap/Form';
+
 const HomePage = () => {
   
   let {authenticated,authTokens} = useContext(AuthContext)
@@ -26,7 +29,7 @@ const HomePage = () => {
     if (response.status===200) setNotes(data)
   }
         
-  async function pull(e) {
+  async function postStatus(e) {
   e.preventDefault();
         console.log("in loginUser");
         let response = await fetch('http://127.0.0.1:8000/status/', {
@@ -47,15 +50,33 @@ const HomePage = () => {
   
 }
   return (
-    <div>
-      <form onSubmit={pull}>
+    <div style={{marginLeft:"100px",marginRight:"100px"}}>
+      {/* <form onSubmit={pull}>
         <input type="text" name="status" placeholder="what's on yr mind"/>
         <input type="submit" />
+      </form> */}
+
+      <form onSubmit={postStatus}>
+      <FloatingLabel controlId="floatingTextarea2" label="Comments">
+        <Form.Control
+          as="textarea"
+          type="text"
+          name="status"
+          placeholder="Leave a comment here"
+          style={{ height: '100px' }}
+        />
+      </FloatingLabel>
+      <div className="d-grid gap-2 mt-3">
+              <button type="submit" className="btn btn-primary">
+                Submit
+              </button>
+            </div>
       </form>
-      <p>Notes:</p>
+
+      <p style={{marginTop:"100px"}}>Statuses</p>
       <ul>
         {notes.map(note =>
-          <li key={note.id}>{note.body}</li>
+          <li key={note.id}>{note.body} - {note.user}</li>
         )}
       </ul>
     </div>

@@ -18,3 +18,6 @@ class NewUserForm(UserCreationForm):
 		if commit:
 			user.save()
 		return user
+	
+	def __str__(self) -> str:
+		return self.username.__str__()

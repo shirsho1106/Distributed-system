@@ -2,18 +2,25 @@ import React, {useContext} from 'react'
 import { Link } from 'react-router-dom'
 import AuthContext from '../context/AuthContext'
 
+import Navbar from 'react-bootstrap/Navbar';
+import Nav from 'react-bootstrap/Nav'
+
 const Header = () => {
   let {user, logout} = useContext(AuthContext)
   return (
-    <div>
-      <Link to="/">Home</Link>
-      <span>|</span>
+    <div style={{marginLeft:"100px"}}>
+    <Navbar bg="light">
+      <Nav className="me-auto">
+      <Nav.Link to="/">Home</Nav.Link>
       {user ?
-        (<p onClick={logout}>Logout</p>)
+        (<Nav.Link onClick={logout}>Logout</Nav.Link>)
       :
-        (<Link to="/login">Login</Link>)}
+        (<Nav.Link to="/login">Login</Nav.Link>)
+      }
       
-      {user && <p>Hello {user.username}</p>}
+      {user && <Nav.Link >Hello {user.username}</Nav.Link>}
+      </Nav>
+    </Navbar>
     </div>
   )
 }
