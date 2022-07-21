@@ -1,8 +1,10 @@
+import json
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, parser_classes, permission_classes
 from rest_framework.parsers import MultiPartParser, FormParser, JSONParser
 from rest_framework.permissions import IsAuthenticated
+from . import tasmia
 
 from story.serializers import StorySerializer
 
@@ -17,7 +19,10 @@ def stories(request):
         print(request.data)
         if serializer.is_valid():
             serializer.validated_data["user"] = request.user
+            imagename = json.dumps(serializer.validated_data["imagename"])
+            print("ser::",json.dumps(serializer.validated_data["imagename"]))
             serializer.save()
+            tasmia.uploadToMinio(serializer.validated_data["storyimage"])
             return Response(status=status.HTTP_201_CREATED)
         return Response(status=status.HTTP_400_BAD_REQUEST)
 
