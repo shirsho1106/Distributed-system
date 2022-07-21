@@ -1,22 +1,23 @@
 import React, { useContext, useEffect, useState } from 'react'
-import {Navigate} from 'react-router-dom'
+import {Navigate, Link} from 'react-router-dom'
 import AuthContext from '../context/AuthContext'
 
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import Form from 'react-bootstrap/Form';
 
+
 const HomePage = () => {
   
   let {authenticated,authTokens} = useContext(AuthContext)
-  let [notes,setNotes] = useState([])
+  let [statuses,setStatuses] = useState([])
 
   useEffect(()=>{
-    getNotes()
+    getStatuses()
   },[])
   
   if(!authenticated) {return <Navigate to="/login"/>}
   
-  let getNotes = async () => {
+  let getStatuses = async () => {
     let response = await fetch('http://127.0.0.1:8000/status/', {
       method:'GET',
       headers:{
@@ -26,7 +27,7 @@ const HomePage = () => {
     })
     let data = await response.json()
     console.log(data);
-    if (response.status===200) setNotes(data)
+    if (response.status===200) setStatuses(data)
   }
         
   async function postStatus(e) {
@@ -57,7 +58,7 @@ const HomePage = () => {
       </form> */}
 
       <form onSubmit={postStatus}>
-      <FloatingLabel controlId="floatingTextarea2" label="Comments">
+      <FloatingLabel controlId="floatingTextarea2" label="What's on your mind?">
         <Form.Control
           as="textarea"
           type="text"
@@ -68,15 +69,21 @@ const HomePage = () => {
       </FloatingLabel>
       <div className="d-grid gap-2 mt-3">
               <button type="submit" className="btn btn-primary">
-                Submit
+                Post
               </button>
             </div>
       </form>
 
+
+      <span style={{marginTop:"100px"}}>
+        <Link to={"/media"} className="link-primary">Stories</Link>
+      </span>
+      
+
       <p style={{marginTop:"100px"}}>Statuses</p>
       <ul>
-        {notes.map(note =>
-          <li key={note.id}>{note.body} - {note.user}</li>
+        {statuses.map(status =>
+          <li key={status.id}>{status.body} - {status.user}</li>
         )}
       </ul>
     </div>

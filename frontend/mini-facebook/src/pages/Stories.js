@@ -3,7 +3,7 @@ import {Navigate, useNavigate} from 'react-router-dom'
 import AuthContext from '../context/AuthContext'
 import axios from 'axios'
 
-const Stories = () => {
+export const Stories = () => {
   
   const navigate = useNavigate()
   const [img, setImg] = useState(null)
@@ -17,7 +17,7 @@ const Stories = () => {
     let data = new FormData(); // creates a new FormData object
     data.append("storyimage", img.image[0]); // add your file to form data
 
-    axios.post("http://127.0.0.1:8000/stories/",data,{
+    axios.post("http://127.0.0.1:8000/story/",data,{
       'headers': {'Content-Type':'multipart/form-data',
                   'Authorization':'Bearer ' + String(authTokens.access) 
                   }
@@ -47,10 +47,6 @@ const Stories = () => {
   //       alert('sth went wrong!')
   //   }
   // }
-
-    const initform = Object.freeze({
-      img: null,
-    });
 
 
     async function handleInputChange(event) {
