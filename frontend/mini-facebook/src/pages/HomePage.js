@@ -29,7 +29,7 @@ const HomePage = () => {
     console.log(data);
     if (response.status===200) setStatuses(data)
   }
-        
+  
   async function postStatus(e) {
   e.preventDefault();
         console.log("in loginUser");
@@ -83,7 +83,7 @@ const HomePage = () => {
       <p style={{marginTop:"100px"}}>Statuses</p>
       <ul>
         {statuses.map(status =>
-          <li key={status.id}>{status.body} - {status.user}</li>
+          <li key={status.id}>{status.body} - {status.writer}</li>
         )}
       </ul>
     </div>

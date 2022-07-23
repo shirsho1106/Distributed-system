@@ -98,8 +98,10 @@ DATABASES = {
         'NAME': 'mini_facebook',
         'HOST': '127.0.0.1',
         'PORT': '3306',
-        'USER': 'shirsho2',
-        'PASSWORD': 'ThugLife!1',
+        # 'USER': 'shirsho2',
+        # 'PASSWORD': 'ThugLife!1', # for labpc
+        'USER': 'root',
+        'PASSWORD': 'shirsho',
     }
 }
 
